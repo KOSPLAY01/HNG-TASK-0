@@ -38,6 +38,16 @@ app.get("/me", async (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
 // Export the app so it can be used by serverless functions.
+import { fileURLToPath } from "url";
+import path from "path";
+
+const PORT = process.env.PORT || 3000;
 export default app;
+
+// If run directly (node server.js), start a local server. When imported as a function
+// (for Netlify), this block will not run.
+const __filename = fileURLToPath(import.meta.url);
+if (process.argv[1] && path.resolve(process.argv[1]) === __filename) {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
