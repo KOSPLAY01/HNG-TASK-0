@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import axios from "axios";
 import serverless from "serverless-http";
 import { getRandomFact } from "../../utils/getFact.js";
 
