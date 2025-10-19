@@ -1,0 +1,37 @@
+{
+  "name": "hng-task-0",
+  "version": "1.0.0",
+  "description": "HNG Task 0 backend API deployable on Netlify Functions",
+  "main": "netlify/functions/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node netlify/functions/server.js",
+    "dev": "nodemon --watch . --exec \"node netlify/functions/server.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KOSPLAY01/HNG-TASK-0.git"
+  },
+  "keywords": [
+    "hng",
+    "netlify",
+    "express",
+    "serverless"
+  ],
+  "author": "KOSPLAY01",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KOSPLAY01/HNG-TASK-0/issues"
+  },
+  "homepage": "https://github.com/KOSPLAY01/HNG-TASK-0#readme",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^5.1.0",
+    "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
