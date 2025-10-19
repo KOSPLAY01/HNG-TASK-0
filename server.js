@@ -1,5 +1,5 @@
 import express from "express";
-import axios from "axios";
+// Use native fetch (available in Node 18+). Avoid axios to simplify Netlify bundling.
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -15,13 +15,17 @@ const USER_PROFILE = {
 };
 
 async function fetchCatFact() {
+  const url = "https://catfact.ninja/fact";
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
   try {
-    const response = await axios.get("https://catfact.ninja/fact", {
-      timeout: 5000,
-    });
-    return response.data.fact;
-  } catch (error) {
-    console.error(" Error fetching cat fact:", error.message);
+    const res = await fetch(url, { signal: controller.signal });
+    clearTimeout(timeout);
+    if (!res.ok) return "Cats are adorable creatures with a love for naps!";
+    const data = await res.json();
+    return data?.fact || "Cats are adorable creatures with a love for naps!";
+  } catch (err) {
+    console.error("Error fetching cat fact:", err?.message || err);
     return "Cats are adorable creatures with a love for naps!";
   }
 }
@@ -43,7 +47,6 @@ import path from "path";
 
 const PORT = process.env.PORT || 3000;
 export default app;
-
 
 if (process.argv[1] && path.basename(process.argv[1]) === "server.js") {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
