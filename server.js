@@ -8,23 +8,23 @@ dotenv.config();
 const app = express();
 app.use(cors());
 
-
 const USER_PROFILE = {
   email: process.env.EMAIL,
   name: process.env.NAME,
-  stack: process.env.STACK
+  stack: process.env.STACK,
 };
 
 async function fetchCatFact() {
   try {
-    const response = await axios.get("https://catfact.ninja/fact", { timeout: 5000 });
+    const response = await axios.get("https://catfact.ninja/fact", {
+      timeout: 5000,
+    });
     return response.data.fact;
   } catch (error) {
     console.error(" Error fetching cat fact:", error.message);
     return "Cats are adorable creatures with a love for naps!";
   }
 }
-
 
 app.get("/me", async (req, res) => {
   const fact = await fetchCatFact();
@@ -34,10 +34,10 @@ app.get("/me", async (req, res) => {
     status: "success",
     user: USER_PROFILE,
     timestamp,
-    fact
+    fact,
   });
 });
 
-
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Export the app so it can be used by serverless functions.
+export default app;

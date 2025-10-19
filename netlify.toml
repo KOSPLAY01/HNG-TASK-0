@@ -1,0 +1,8 @@
+[build]
+  functions = "netlify/functions"
+  command = "npm run build"
+
+[dev]
+  framework = "express"
+  command = "node start.js"
+  port = 3000
